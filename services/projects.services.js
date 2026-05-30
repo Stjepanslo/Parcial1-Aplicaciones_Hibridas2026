@@ -20,3 +20,17 @@ export async function getProyectos(filter = {}) {
         return []
     }
 }
+
+import { ObjectId } from "mongodb"
+
+export async function getProyectoById(id) {
+    try {
+        await client.connect()
+        const proyecto = await db.collection("Projects").findOne({ _id: new ObjectId(id) })
+        await client.close()
+        return proyecto
+    } catch (error) {
+        console.log("Error:", error)
+        return null
+    }
+}
