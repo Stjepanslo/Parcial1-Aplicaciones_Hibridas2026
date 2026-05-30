@@ -1,7 +1,7 @@
 import { MongoClient } from "mongodb"
 
 const client = new MongoClient("mongodb+srv://eaoven89_db_user:CYMdfQ6I75osibm5@clusteraplicacioneshibr.chxaswv.mongodb.net/eaoven89_db_user")
-const db = client.db("eaoven89_db_user")
+const db = client.db("clusteraplicacioneshibr")
 
 export async function getProyectos(filter = {}) {
     try {
