@@ -1,4 +1,4 @@
-import { MongoClient } from "mongodb"
+import { MongoClient, ObjectId } from "mongodb"
 
 const client = new MongoClient("mongodb+srv://eaoven89_db_user:CYMdfQ6I75osibm5@clusteraplicacioneshibr.chxaswv.mongodb.net/eaoven89_db_user")
 const db = client.db("clusteraplicacioneshibr")
@@ -21,8 +21,6 @@ export async function getProyectos(filter = {}) {
     }
 }
 
-import { ObjectId } from "mongodb"
-
 export async function getProyectoById(id) {
     try {
         await client.connect()
@@ -32,5 +30,61 @@ export async function getProyectoById(id) {
     } catch (error) {
         console.log("Error:", error)
         return null
+    }
+}
+
+export async function createProyecto(proyecto) {
+    try {
+        await client.connect()
+        const resultado = await db.collection("Projects").insertOne(proyecto)
+        await client.close()
+        return { _id: resultado.insertedId, ...proyecto }
+    } catch (error) {
+        console.log("Error:", error)
+        throw error
+    }
+}
+
+export async function replaceProyecto(id, proyecto) {
+    try {
+        await client.connect()
+        await db.collection("Projects").replaceOne(
+            { _id: new ObjectId(id) },
+            proyecto
+        )
+        await client.close()
+        return { _id: id, ...proyecto }
+    } catch (error) {
+        console.log("Error:", error)
+        throw error
+    }
+}
+
+export async function updateProyecto(id, proyecto) {
+    try {
+        await client.connect()
+        await db.collection("Projects").updateOne(
+            { _id: new ObjectId(id) },
+            { $set: proyecto }
+        )
+        await client.close()
+        return { _id: id, ...proyecto }
+    } catch (error) {
+        console.log("Error:", error)
+        throw error
+    }
+}
+
+export async function deleteProyecto(id) {
+    try {
+        await client.connect()
+        const resultado = await db.collection("Projects").deleteOne(
+            { _id: new ObjectId(id) }
+        )
+        await client.close()
+        return resultado
+    } catch (error) {
+        console.log("Error:", error)
+        throw error
     }
 }
