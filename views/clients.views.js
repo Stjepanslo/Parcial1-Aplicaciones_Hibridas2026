@@ -28,6 +28,7 @@ export function createClientePage(cliente) {
     html += `<img src="${cliente.foto}" width="300" alt="${cliente.nombre}">`
     html += `<p>${cliente.descripcion}</p>`
     html += `<a href="/cliente/${cliente._id}/proyectos">Ver proyectos de este cliente</a>`
+    html += `<br>`
     html += `<a href="/clientes">← Volver a clientes</a>`
     
     return createPage(html)
