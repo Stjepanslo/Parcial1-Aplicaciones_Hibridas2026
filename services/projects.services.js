@@ -11,6 +11,10 @@ export async function getProyectos(filter = {}) {
         if (filter?.section) {
             filterMongo.section = filter.section
         }
+
+        if (filter?.technology) {
+        filterMongo.technologies = { $regex: filter.technology, $options: "i" }
+}
         
         const proyectos = await db.collection("Projects").find(filterMongo).toArray()
         await client.close()

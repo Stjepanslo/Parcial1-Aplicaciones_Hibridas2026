@@ -9,12 +9,26 @@ export function homePage() {
         { slug: "material", nombre: "Material Pedagógico" }
     ]
     
-    let html = "<h2>Selecciona una categoría:</h2>"
-    html += "<ul>"
+    let html = `<div class="container mt-5">`
+    html += `<div class="row mb-5">`
+    html += `<div class="col-md-12 text-center">`
+    html += `<h2 class="mb-4">Selecciona una categoría</h2>`
+    html += `<div class="row">`
+    
     sections.forEach(section => {
-        html += `<li><a href="/proyectos/${section.slug}">${section.nombre}</a></li>`
+        html += `<div class="col-md-4 mb-3">`
+        html += `<a href="/proyectos/${section.slug}" class="card h-100 text-decoration-none shadow-sm">`
+        html += `<div class="card-body text-center">`
+        html += `<h5 class="card-title">${section.nombre}</h5>`
+        html += `</div>`
+        html += `</a>`
+        html += `</div>`
     })
-    html += "</ul>"
+    
+    html += `</div>
+            </div>
+        </div>
+    </div>`
     
     return createPage(html)
 }
